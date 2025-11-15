@@ -1,0 +1,7 @@
+pydantic
+langchain
+langchain_openai
+langgraph
+ipykernel
+dotenv
+git+https://github.com/toon-format/toon-python.git
