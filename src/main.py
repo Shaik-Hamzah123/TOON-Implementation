@@ -100,7 +100,7 @@ def main():
         "chatbot_response": ""
     })
 
-    return result
+    print(result)
 
 if __name__ == "__main__":
     main()
