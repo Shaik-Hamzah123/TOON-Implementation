@@ -1,99 +1,3 @@
-# from langchain_openai import ChatOpenAI
-# from langgraph.graph import StateGraph, START, END
-# from langgraph.cache.memory import InMemoryCache 
-# from langgraph.types import CachePolicy 
-# from typing_extensions import TypedDict
-# from pydantic import BaseModel
-
-# from toon_encoder import toon_encode_data
-# from dummy_api import return_dhs_data
-
-# import os
-# from dotenv import load_dotenv
-# load_dotenv(override=True)
-
-# class MasterState(TypedDict):
-#     dhs_data: dict
-#     encoded_data: dict
-#     user_query: str
-#     chatbot_response: str
-
-# def get_data(state: MasterState):
-#     if state['encoded_data'] is None:
-#         state["encoded_data"] = return_dhs_data()
-#     else:
-#         return state
-
-# def user_input(state: MasterState):
-#     # For demonstration purposes, we use a static query.
-#     # In a real application, this could be replaced with dynamic user input.
-#     state["user_query"] = input("Please enter your query about the DHS session data: ")
-
-#     if not state["user_query"]:
-#         state["user_query"] = "Provide a summary of the DHS sessions."
-
-#     return state
-
-# def check_input(state: MasterState):
-#     if state['user_query'] == "quit":
-#         print("Exiting the application.")
-#         return END
-
-#     return "user_input"
-
-# def chatbot(state: MasterState):
-    
-#     model = ChatOpenAI(model_name="gpt-4.1-nano", temperature=0)
-
-#     prompt = f""" You are an assistant that helps users understand DHS session data.
-
-#     You are provided with the following DHS session data in toon encoded format:
-#     {state['encoded_data']}
-
-#     The User may ask questions about the sessions, and you should provide clear and concise answers based on the data.
-    
-#     the user query is {state.get('user_query', 'No query provided')}. Provide the best possible answer based on the encoded data.
-#     """
-
-#     state['chatbot_response'] = model.invoke(prompt)
-#     print(state['chatbot_response'])
-
-#     return state
-
-# def build_graph(cache):
-#     graph_builder = StateGraph(MasterState)
-
-#     graph_builder.add_node(START, get_data)
-#     graph_builder.add_node("user_input", user_input)
-#     graph_builder.add_node("chatbot", chatbot)
-#     graph_builder.add_node(END)
-
-#     graph_builder.add_edge(START, "user_input")
-#     graph_builder.add_edge("user_input", "chatbot")
-#     graph_builder.add_conditional_edges("chatbot", 
-#                                         check_input,
-#                                         {
-#                                             "user_input": "user_input",
-#                                             END: END
-#                                         })
-    
-#     return graph_builder.compile(cache)
-
-# def main():
-#     cache = InMemoryCache()
-
-#     graph = build_graph(cache)
-
-#     result = graph.invoke({})
-
-#     cache.clear()
-
-#     print("\nChatbot Response:")
-#     print(result['chatbot_response'])
-
-# if __name__ == "__main__":
-#     main()
-
 from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, END
 from langgraph.cache.memory import InMemoryCache 
@@ -107,7 +11,7 @@ load_dotenv(override=True)
 
 class MasterState(TypedDict):
     dhs_data: dict
-    encoded_data: dict
+    encoded_data: str   # TOON TEXT STORED HERE
     user_query: str
     chatbot_response: str
 
