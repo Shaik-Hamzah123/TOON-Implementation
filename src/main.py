@@ -46,7 +46,7 @@ def chatbot(state: MasterState):
 
                 ## Available Data
                 The following DHS session data is provided in toon-encoded format:
-                {state['encoded_data']}
+                {state['encoded_data']}         
 
                 ## User Query
                 {state.get('user_query', 'No query provided')}
@@ -59,6 +59,11 @@ def chatbot(state: MasterState):
                 5. Format your response in a clear, easy-to-read manner
 
                 Please provide your response:"""
+    
+    # FOR THE GIVEN ENCODED DATA WE WILL BE SAVING $0.0146 per REQUEST
+    # JSON: 17349 tokens
+    # TOON: 15892 tokens
+    # Savings: 8.4%
 
     response = model.invoke(prompt)
     state['chatbot_response'] = response.content
