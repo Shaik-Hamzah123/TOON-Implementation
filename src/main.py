@@ -66,7 +66,32 @@ def chatbot(state: MasterState):
 
     return state
 
-def build_graph():
+# def build_graph():
+#     graph_builder = StateGraph(MasterState)
+
+#     graph_builder.add_node("get_data", get_data)
+#     graph_builder.add_node("user_input", user_input)
+#     graph_builder.add_node("chatbot", chatbot)
+
+#     graph_builder.set_entry_point("get_data")
+#     graph_builder.add_edge("get_data", "user_input")
+#     graph_builder.add_conditional_edges(
+#         "user_input",
+#         check_input,
+#         {
+#             "chatbot": "chatbot",
+#             END: END
+#         }
+#     )
+#     graph_builder.add_edge("chatbot", "user_input")  # Loop back for next query
+
+#     cache = InMemoryCache()
+#     graph = graph_builder.compile(cache=cache)
+
+#     return graph
+
+def main():
+
     graph_builder = StateGraph(MasterState)
 
     graph_builder.add_node("get_data", get_data)
@@ -87,11 +112,6 @@ def build_graph():
 
     cache = InMemoryCache()
     graph = graph_builder.compile(cache=cache)
-
-    return graph
-
-def main():
-    graph = build_graph()
     
     # Initialize with empty state
     result = graph.invoke({
@@ -99,6 +119,8 @@ def main():
         "user_query": "",
         "chatbot_response": ""
     })
+
+    cache.clear()
 
     print(result)
 
