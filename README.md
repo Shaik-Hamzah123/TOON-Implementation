@@ -68,10 +68,10 @@ Your `requirements.txt` must include:
 
 ------------------------------------------------------------------------
 
-## 🚀 Quick Start (Using toon-python)
+## 🚀 Quick Start (Using toon-format)
 
 ``` python
-from toon import encode
+from toon_format import encode
 
 data = {
     "students": [
@@ -86,7 +86,7 @@ print(toon_text)
 
 Example output:
 
-    students:
+    students[2]:
         name, age
         Alice, 21
         Bob, 22
